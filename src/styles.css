@@ -1,0 +1,360 @@
+:root {
+  --bg: #0e1220;
+  --panel: rgba(255, 255, 255, 0.07);
+  --panel2: rgba(255, 255, 255, 0.12);
+  --text: rgba(255, 255, 255, 0.94);
+  --muted: rgba(255, 255, 255, 0.65);
+  --line: rgba(255, 255, 255, 0.18);
+  --r: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+body {
+  font-family:
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Arial,
+    sans-serif;
+  background:
+    radial-gradient(900px 600px at 15% 10%, rgba(120, 160, 255, 0.18), transparent 60%),
+    radial-gradient(700px 500px at 90% 30%, rgba(160, 120, 255, 0.14), transparent 60%), var(--bg);
+  color: var(--text);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* App layout */
+.app {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.shell {
+  width: min(960px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 20px 0; /* more breathing room */
+}
+
+/* Nav */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  border-radius: var(--r);
+}
+
+.nav__links {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.nav__link {
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+
+.nav__link:hover {
+  background: var(--panel2);
+}
+
+.nav__brand,
+.footer__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav__logo {
+  margin-right: 20px;
+  align-items: center;
+  border-radius: 20px;
+  width: 18px;
+  height: 18px;
+  opacity: 0.85;
+}
+
+.nav__brand {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Layout */
+.card {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  border-radius: var(--r);
+  padding: 16px;
+}
+
+.grid {
+  display: grid;
+  gap: 20px; /* increased gap between cards */
+}
+
+.row {
+  display: flex;
+  gap: 14px; /* slightly more spacing */
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Inputs */
+.input {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 20px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--text);
+  line-height: 1.2;
+}
+
+/* Make buttons feel consistent and align better */
+.btn {
+  padding: 10px 14px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--panel2);
+  cursor: pointer;
+  line-height: 1.2;
+}
+
+.btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* ---------------------------
+   Focus + alignment tightening
+---------------------------- */
+
+/* Labels: tighten rhythm so controls line up */
+label {
+  display: inline-block;
+  margin-top: 10px;
+  margin-bottom: 8px;
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* Todo form inline layout */
+.todo-form__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+/* Override global input margins inside the inline row */
+.todo-form__row .input {
+  margin-top: 0; /* critical: stop the input pushing down */
+}
+
+/* Let input flex instead of forcing 100% */
+.todo-form__input {
+  flex: 1;
+  width: auto; /* overrides width:100% */
+  min-width: 180px;
+}
+
+/* Button stays compact and vertically aligned */
+.todo-form__btn {
+  white-space: nowrap;
+  margin-bottom: 0; /* critical: stop the button dropping lower */
+}
+
+/* Filter pills row: tighten, align, match sizing */
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.filters .btn {
+  padding: 8px 12px;
+  margin-bottom: 0;
+  border-radius: 12px;
+  opacity: 0.92;
+}
+
+.filters .btn:hover {
+  background: var(--panel2);
+  opacity: 1;
+}
+
+/* Todos */
+.todo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  gap: 12px; /* keeps left and right groups spaced */
+}
+
+/* Left side: checkbox + text should align */
+.todo__left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.todo__text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Right side: action buttons line up */
+.todo__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.todo__actions .btn {
+  padding: 8px 12px;
+  margin-bottom: 0;
+}
+
+.todo--done {
+  opacity: 0.65;
+}
+
+/* Contact (stacked + professional) */
+.contact-form {
+  margin-top: 12px;
+  display: grid;
+  gap: 12px;
+}
+
+.contact-field {
+  display: grid;
+  gap: 6px;
+}
+
+.contact-textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+.contact-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+/* Footer */
+.footer {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--panel);
+}
+
+.footer__row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  text-align: center;
+  flex-wrap: wrap; /* allows graceful wrap on very small screens */
+}
+
+.footer__logo {
+  width: 28px;
+  height: 28px;
+  opacity: 0.9;
+  display: inline-flex;
+  align-items: center;
+}
+
+.footer__text {
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  font-size: 16px;
+  margin-right: 8px;
+}
+
+.footer__year {
+  margin-left: 4px;
+}
+
+.footer__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.footer__link {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 500;
+  opacity: 0.75;
+  transition:
+    opacity 0.2s ease,
+    text-shadow 0.2s ease;
+}
+
+.footer__link:hover {
+  opacity: 1;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  text-decoration: underline;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+@media (max-width: 560px) {
+  .shell {
+    width: calc(100% - 24px);
+    padding: 16px 0;
+  }
+
+  .nav {
+    gap: 10px;
+  }
+
+  .grid {
+    gap: 16px; /* keep it a bit tighter on phones */
+  }
+
+  /* Keep input usable on small screens */
+  .todo-form__input {
+    min-width: 140px;
+  }
+}
