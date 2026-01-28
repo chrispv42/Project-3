@@ -86,7 +86,6 @@ Task X/
 │ ├─ index.js
 │ └─ styles.css
 │
-├─ .gitignore
 ├─ package.json
-├─ package-lock.json
 └─ README.md
+```
