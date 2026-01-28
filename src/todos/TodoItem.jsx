@@ -12,7 +12,7 @@ export default function TodoItem({ todo, onToggle, onDelete }) {
       <div className={cls.row}>
         <span>
           <input
-            type="checkbox"
+            type="hidden"
             checked={todo.completed}
             onChange={() => onToggle(todo.id)}
             aria-label={`Mark "${todo.text}" as completed`}

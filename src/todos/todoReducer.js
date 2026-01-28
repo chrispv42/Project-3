@@ -1,6 +1,6 @@
 // src/todos/todoReducer.js
 
-export const initialTodos = [{ id: 1, text: 'Running', completed: false }];
+export const initialTodos = [{ id: 1, text: 'Complete homework', completed: false }];
 
 export function todoReducer(state, action) {
   switch (action.type) {

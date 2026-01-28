@@ -83,7 +83,7 @@ export default function ContactPage() {
               <button className="btn" type="submit">
                 Submit
               </button>
-              {submitted && <span className="muted">Submitted!</span>}
+              {submitted && <span className="muted">Message sent successfully! Please allow for up to 24 hours for a response.</span>}
             </div>
           </form>
         </section>

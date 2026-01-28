@@ -6,6 +6,13 @@
   --muted: rgba(255, 255, 255, 0.65);
   --line: rgba(255, 255, 255, 0.18);
   --r: 14px;
+
+  /* spacing scale (mobile-first) */
+  --s-1: 6px;
+  --s-2: 10px;
+  --s-3: 14px;
+  --s-4: 18px;
+  --s-5: 24px;
 }
 
 * {
@@ -42,6 +49,15 @@ a {
   text-decoration: none;
 }
 
+/* Shared “surface” look */
+.nav,
+.card,
+.footer {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  border-radius: var(--r);
+}
+
 /* App layout */
 .app {
   min-height: 100vh;
@@ -50,26 +66,25 @@ a {
 }
 
 .shell {
-  width: min(960px, calc(100% - 32px));
+  width: min(960px, calc(100% - 24px));
   margin: 0 auto;
-  padding: 20px 0; /* more breathing room */
+  padding: var(--s-4) 0;
 }
 
-/* Nav */
+/* Nav (mobile-first) */
 .nav {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
   padding: 12px 14px;
-  border: 1px solid var(--line);
-  background: var(--panel);
-  border-radius: var(--r);
 }
 
 .nav__links {
   display: flex;
-  gap: 10px;
+  gap: var(--s-2);
   flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .nav__link {
@@ -89,44 +104,52 @@ a {
 }
 
 .nav__logo {
-  margin-right: 20px;
-  align-items: center;
-  border-radius: 20px;
   width: 18px;
   height: 18px;
   opacity: 0.85;
-}
-
-.nav__brand {
-  text-decoration: none;
-  color: inherit;
+  border-radius: 20px;
 }
 
 /* Layout */
 .card {
-  border: 1px solid var(--line);
-  background: var(--panel);
-  border-radius: var(--r);
   padding: 16px;
 }
 
 .grid {
   display: grid;
-  gap: 20px; /* increased gap between cards */
+  gap: var(--s-4);
 }
 
 .row {
   display: flex;
-  gap: 14px; /* slightly more spacing */
+  gap: var(--s-3);
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
 }
 
-/* Inputs */
+/* Typography rhythm */
+h1,
+h2,
+h3 {
+  margin: 0 0 var(--s-2);
+}
+
+p {
+  margin: 0 0 var(--s-2);
+}
+
+label {
+  display: inline-block;
+  margin-top: var(--s-3);
+  margin-bottom: var(--s-2);
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* Inputs + buttons (mobile-first: no giant margins) */
 .input {
   width: 100%;
   padding: 10px 12px;
-  margin-top: 20px;
   border-radius: 10px;
   border: 1px solid var(--line);
   background: rgba(0, 0, 0, 0.2);
@@ -134,10 +157,8 @@ a {
   line-height: 1.2;
 }
 
-/* Make buttons feel consistent and align better */
 .btn {
   padding: 10px 14px;
-  margin-bottom: 20px;
   border-radius: 10px;
   border: 1px solid var(--line);
   background: var(--panel2);
@@ -150,56 +171,36 @@ a {
   cursor: not-allowed;
 }
 
-/* ---------------------------
-   Focus + alignment tightening
----------------------------- */
-
-/* Labels: tighten rhythm so controls line up */
-label {
-  display: inline-block;
-  margin-top: 10px;
-  margin-bottom: 8px;
-  color: var(--text);
-  font-weight: 600;
-}
-
 /* Todo form inline layout */
 .todo-form__row {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-top: 8px;
-}
-
-/* Override global input margins inside the inline row */
-.todo-form__row .input {
-  margin-top: 0; /* critical: stop the input pushing down */
+  gap: var(--s-2);
+  margin-top: var(--s-2);
 }
 
 /* Let input flex instead of forcing 100% */
 .todo-form__input {
   flex: 1;
-  width: auto; /* overrides width:100% */
-  min-width: 180px;
+  width: auto;
+  min-width: 0; /* important: allows shrinking on mobile */
 }
 
-/* Button stays compact and vertically aligned */
+/* Button stays compact and aligned */
 .todo-form__btn {
   white-space: nowrap;
-  margin-bottom: 0; /* critical: stop the button dropping lower */
 }
 
-/* Filter pills row: tighten, align, match sizing */
+/* Filters */
 .filters {
   display: flex;
-  gap: 10px;
-  margin-top: 10px;
+  gap: var(--s-2);
+  margin-top: var(--s-3);
   flex-wrap: wrap;
 }
 
 .filters .btn {
   padding: 8px 12px;
-  margin-bottom: 0;
   border-radius: 12px;
   opacity: 0.92;
 }
@@ -214,18 +215,19 @@ label {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: var(--s-3);
   padding: 10px 12px;
   border-radius: 10px;
   border: 1px solid var(--line);
-  gap: 12px; /* keeps left and right groups spaced */
 }
 
-/* Left side: checkbox + text should align */
+/* Make left text behave on small screens */
 .todo__left {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--s-2);
   min-width: 0;
+  flex: 1;
 }
 
 .todo__text {
@@ -234,17 +236,16 @@ label {
   white-space: nowrap;
 }
 
-/* Right side: action buttons line up */
+/* Actions should not push down with random margins */
 .todo__actions {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--s-2);
   flex-shrink: 0;
 }
 
 .todo__actions .btn {
   padding: 8px 12px;
-  margin-bottom: 0;
 }
 
 .todo--done {
@@ -253,14 +254,14 @@ label {
 
 /* Contact (stacked + professional) */
 .contact-form {
-  margin-top: 12px;
+  margin-top: var(--s-2);
   display: grid;
-  gap: 12px;
+  gap: var(--s-3);
 }
 
 .contact-field {
   display: grid;
-  gap: 6px;
+  gap: var(--s-1);
 }
 
 .contact-textarea {
@@ -271,59 +272,57 @@ label {
 .contact-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-top: 6px;
+  gap: var(--s-2);
+  margin-top: var(--s-2);
+  flex-wrap: wrap;
 }
 
-/* Footer */
+/* Footer (mobile-first: allow wrapping + avoid hard nowrap constraints) */
 .footer {
   padding: 12px;
-  border: 1px solid var(--line);
-  border-radius: var(--r);
-  background: var(--panel);
 }
 
 .footer__row {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
+  gap: var(--s-2);
   text-align: center;
-  flex-wrap: wrap; /* allows graceful wrap on very small screens */
+  flex-wrap: wrap;
 }
 
 .footer__logo {
-  width: 28px;
-  height: 28px;
+  width: 22px;
+  height: 22px;
   opacity: 0.9;
-  display: inline-flex;
-  align-items: center;
 }
 
 .footer__text {
-  white-space: nowrap;
   display: inline-flex;
   align-items: center;
-  font-size: 16px;
-  margin-right: 8px;
+  gap: 6px;
+  font-size: 14px;
+  /* allow wrap on tight screens */
+  white-space: normal;
 }
 
 .footer__year {
-  margin-left: 4px;
+  margin-left: 2px;
 }
 
 .footer__brand {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  white-space: nowrap;
+  /* allow wrap; emojis can wrap too */
+  white-space: normal;
 }
 
 .footer__link {
   color: inherit;
   text-decoration: none;
   font-weight: 500;
-  opacity: 0.75;
+  opacity: 0.8;
   transition:
     opacity 0.2s ease,
     text-shadow 0.2s ease;
@@ -339,22 +338,48 @@ label {
   color: var(--muted);
 }
 
-@media (max-width: 560px) {
-  .shell {
-    width: calc(100% - 24px);
-    padding: 16px 0;
-  }
+/* --------- Breakpoints --------- */
 
-  .nav {
-    gap: 10px;
+/* Tablet+ */
+@media (min-width: 561px) {
+  .shell {
+    width: min(960px, calc(100% - 32px));
+    padding: 20px 0;
   }
 
   .grid {
-    gap: 16px; /* keep it a bit tighter on phones */
+    gap: 20px;
   }
 
-  /* Keep input usable on small screens */
-  .todo-form__input {
-    min-width: 140px;
+  .footer__logo {
+    width: 26px;
+    height: 26px;
+  }
+
+  .footer__text {
+    font-size: 15px;
+  }
+}
+
+/* Desktop comfort */
+@media (min-width: 900px) {
+  .footer__row {
+    gap: 14px;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 360px) {
+  .nav__links {
+    gap: var(--s-1);
+  }
+
+  .nav__link {
+    padding: 7px 10px;
+  }
+
+  .footer__text,
+  .footer__brand {
+    font-size: 13px;
   }
 }

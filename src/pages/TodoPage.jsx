@@ -41,7 +41,7 @@ export default function TodoPage() {
           </div>
 
           <div style={{ flex: '2 1 360px', minWidth: 280 }}>
-            <h2>Task List</h2>
+            <h2>Active Tasks</h2>
             <TodoList
               todos={filteredTodos}
               onToggle={(id) => dispatch({ type: 'TOGGLE', id })}
