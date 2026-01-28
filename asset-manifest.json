@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/chrispv42/Project-3.git/static/css/main.e56efc4b.css",
+    "main.js": "/chrispv42/Project-3.git/static/js/main.1a304526.js",
+    "index.html": "/chrispv42/Project-3.git/index.html",
+    "main.e56efc4b.css.map": "/chrispv42/Project-3.git/static/css/main.e56efc4b.css.map",
+    "main.1a304526.js.map": "/chrispv42/Project-3.git/static/js/main.1a304526.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e56efc4b.css",
+    "static/js/main.1a304526.js"
+  ]
+}
