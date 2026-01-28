@@ -13,6 +13,14 @@
   --s-3: 14px;
   --s-4: 18px;
   --s-5: 24px;
+
+  /* footer sizing */
+  --footer-pad-y: 10px;
+  --footer-pad-x: 12px;
+  --footer-font: clamp(12px, 2.8vw, 14px);
+
+  --btn-pad-y: 10px;
+  --btn-pad-x: 14px;
 }
 
 * {
@@ -146,7 +154,7 @@ label {
   font-weight: 600;
 }
 
-/* Inputs + buttons (mobile-first: no giant margins) */
+/* Inputs + buttons */
 .input {
   width: 100%;
   padding: 10px 12px;
@@ -158,12 +166,13 @@ label {
 }
 
 .btn {
-  padding: 10px 14px;
+  padding: var(--btn-pad-y) var(--btn-pad-x);
   border-radius: 10px;
   border: 1px solid var(--line);
   background: var(--panel2);
   cursor: pointer;
   line-height: 1.2;
+  white-space: nowrap;
 }
 
 .btn:disabled {
@@ -171,31 +180,34 @@ label {
   cursor: not-allowed;
 }
 
-/* Todo form inline layout */
+/* ===== Task Ops spacing fixes (this is the big one) ===== */
+
+/* Input + Add row */
 .todo-form__row {
   display: flex;
   align-items: center;
-  gap: var(--s-2);
+  gap: 12px;
   margin-top: var(--s-2);
+  margin-bottom: var(--s-3); /* ✅ creates separation from filters */
+  flex-wrap: wrap;
 }
 
-/* Let input flex instead of forcing 100% */
 .todo-form__input {
   flex: 1;
   width: auto;
-  min-width: 0; /* important: allows shrinking on mobile */
+  min-width: 220px;
 }
 
-/* Button stays compact and aligned */
 .todo-form__btn {
-  white-space: nowrap;
+  flex: 0 0 auto;
 }
 
-/* Filters */
+/* Filters row */
 .filters {
   display: flex;
-  gap: var(--s-2);
-  margin-top: var(--s-3);
+  gap: 10px;
+  row-gap: 10px;
+  margin-top: 0; /* ✅ so the margin-bottom above is the source of truth */
   flex-wrap: wrap;
 }
 
@@ -221,7 +233,6 @@ label {
   border: 1px solid var(--line);
 }
 
-/* Make left text behave on small screens */
 .todo__left {
   display: flex;
   align-items: center;
@@ -236,11 +247,10 @@ label {
   white-space: nowrap;
 }
 
-/* Actions should not push down with random margins */
 .todo__actions {
   display: inline-flex;
   align-items: center;
-  gap: var(--s-2);
+  gap: 10px;
   flex-shrink: 0;
 }
 
@@ -252,7 +262,7 @@ label {
   opacity: 0.65;
 }
 
-/* Contact (stacked + professional) */
+/* Contact */
 .contact-form {
   margin-top: var(--s-2);
   display: grid;
@@ -277,52 +287,61 @@ label {
   flex-wrap: wrap;
 }
 
-/* Footer (mobile-first: allow wrapping + avoid hard nowrap constraints) */
+/* ===== Footer fixes (stop the “one-item-per-line” disaster) ===== */
+
 .footer {
-  padding: 12px;
+  padding: var(--footer-pad-y) var(--footer-pad-x);
 }
 
+/* Make footer layout resilient even if JSX uses many separate elements */
 .footer__row {
-  display: flex;
+  display: flex; /* ✅ NOT grid */
+  flex-wrap: wrap; /* ✅ wraps nicely */
+  justify-content: center;
+  align-items: center;
+  column-gap: 12px;
+  row-gap: 8px;
+  text-align: center;
+}
+
+/* If Footer.jsx has child divs/ps that are block-level, force them to behave */
+.footer__row > * {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--s-2);
-  text-align: center;
-  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  flex: 0 0 auto; /* ✅ prevent full-width stacking */
+  white-space: nowrap; /* ✅ keep each chunk together */
 }
 
+/* If you already use these classes, they still look right */
 .footer__logo {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   opacity: 0.9;
 }
 
-.footer__text {
+.footer__text,
+.footer__brand {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 14px;
-  /* allow wrap on tight screens */
-  white-space: normal;
+  font-size: var(--footer-font);
+  line-height: 1.2;
+  white-space: nowrap;
 }
 
 .footer__year {
   margin-left: 2px;
 }
 
-.footer__brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  /* allow wrap; emojis can wrap too */
-  white-space: normal;
-}
-
 .footer__link {
   color: inherit;
   text-decoration: none;
   font-weight: 500;
-  opacity: 0.8;
+  opacity: 0.82;
   transition:
     opacity 0.2s ease,
     text-shadow 0.2s ease;
@@ -340,6 +359,27 @@ label {
 
 /* --------- Breakpoints --------- */
 
+/* Small phones */
+@media (max-width: 420px) {
+  .todo-form__input {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+
+  .todo-form__btn {
+    flex: 1 1 100%;
+  }
+
+  .footer {
+    padding: 10px 10px;
+  }
+
+  .footer__logo {
+    width: 18px;
+    height: 18px;
+  }
+}
+
 /* Tablet+ */
 @media (min-width: 561px) {
   .shell {
@@ -352,19 +392,8 @@ label {
   }
 
   .footer__logo {
-    width: 26px;
-    height: 26px;
-  }
-
-  .footer__text {
-    font-size: 15px;
-  }
-}
-
-/* Desktop comfort */
-@media (min-width: 900px) {
-  .footer__row {
-    gap: 14px;
+    width: 22px;
+    height: 22px;
   }
 }
 
@@ -378,8 +407,7 @@ label {
     padding: 7px 10px;
   }
 
-  .footer__text,
-  .footer__brand {
-    font-size: 13px;
+  :root {
+    --footer-font: 12px;
   }
 }
