@@ -1,3 +1,10 @@
+/* =========================
+   Task X — styles.css (consolidated)
+   Mobile-first • CSS is source of truth
+   ========================= */
+
+/* ---------- Theme tokens ---------- */
+
 :root {
   --bg: #0e1220;
   --panel: rgba(255, 255, 255, 0.07);
@@ -7,21 +14,24 @@
   --line: rgba(255, 255, 255, 0.18);
   --r: 14px;
 
-  /* spacing scale (mobile-first) */
+  /* spacing scale */
   --s-1: 6px;
   --s-2: 10px;
   --s-3: 14px;
   --s-4: 18px;
   --s-5: 24px;
 
-  /* footer sizing */
+  /* controls */
+  --btn-pad-y: 10px;
+  --btn-pad-x: 14px;
+
+  /* footer */
   --footer-pad-y: 10px;
   --footer-pad-x: 12px;
   --footer-font: clamp(12px, 2.8vw, 14px);
-
-  --btn-pad-y: 10px;
-  --btn-pad-x: 14px;
 }
+
+/* ---------- Base ---------- */
 
 * {
   box-sizing: border-box;
@@ -57,6 +67,12 @@ a {
   text-decoration: none;
 }
 
+/* ---------- Utilities ---------- */
+
+.muted {
+  color: var(--muted);
+}
+
 /* Shared “surface” look */
 .nav,
 .card,
@@ -66,7 +82,8 @@ a {
   border-radius: var(--r);
 }
 
-/* App layout */
+/* ---------- Layout ---------- */
+
 .app {
   min-height: 100vh;
   display: grid;
@@ -77,50 +94,6 @@ a {
   width: min(960px, calc(100% - 24px));
   margin: 0 auto;
   padding: var(--s-4) 0;
-}
-
-/* Nav (mobile-first) */
-.nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--s-3);
-  padding: 12px 14px;
-}
-
-.nav__links {
-  display: flex;
-  gap: var(--s-2);
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-
-.nav__link {
-  padding: 8px 12px;
-  border-radius: 10px;
-}
-
-.nav__link:hover {
-  background: var(--panel2);
-}
-
-.nav__brand,
-.footer__brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.nav__logo {
-  width: 18px;
-  height: 18px;
-  opacity: 0.85;
-  border-radius: 20px;
-}
-
-/* Layout */
-.card {
-  padding: 16px;
 }
 
 .grid {
@@ -135,7 +108,23 @@ a {
   align-items: flex-start;
 }
 
-/* Typography rhythm */
+.card {
+  padding: 16px;
+}
+
+/* Two-column layout helpers used by TodoPage */
+.todo-col {
+  flex: 1 1 280px;
+  min-width: 260px;
+}
+
+.todo-col--list {
+  flex: 2 1 360px;
+  min-width: 280px;
+}
+
+/* ---------- Typography ---------- */
+
 h1,
 h2,
 h3 {
@@ -150,11 +139,11 @@ label {
   display: inline-block;
   margin-top: var(--s-3);
   margin-bottom: var(--s-2);
-  color: var(--text);
   font-weight: 600;
 }
 
-/* Inputs + buttons */
+/* ---------- Inputs & Buttons ---------- */
+
 .input {
   width: 100%;
   padding: 10px 12px;
@@ -180,16 +169,65 @@ label {
   cursor: not-allowed;
 }
 
-/* ===== Task Ops spacing fixes (this is the big one) ===== */
+/* ---------- NavBar ---------- */
 
-/* Input + Add row */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: 12px 14px;
+}
+
+.nav__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav__logo {
+  width: 18px;
+  height: 18px;
+  opacity: 0.85;
+  border-radius: 20px;
+}
+
+.nav__links {
+  display: flex;
+  gap: var(--s-2);
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.nav__link {
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+
+.nav__link:hover {
+  background: var(--panel2);
+}
+
+/* ✅ active state (NavLink adds "is-active" in your JSX) */
+.nav__link.is-active {
+  background: var(--panel2);
+  border: 1px solid var(--line);
+}
+
+/* ---------- Todo: Form / Filters ---------- */
+
+.todo-form {
+  display: grid;
+  gap: var(--s-2);
+}
+
 .todo-form__row {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-top: var(--s-2);
-  margin-bottom: var(--s-3); /* ✅ creates separation from filters */
   flex-wrap: wrap;
+  margin-top: var(--s-2);
+  margin-bottom: var(--s-3); /* space before filters */
 }
 
 .todo-form__input {
@@ -202,12 +240,10 @@ label {
   flex: 0 0 auto;
 }
 
-/* Filters row */
 .filters {
   display: flex;
   gap: 10px;
   row-gap: 10px;
-  margin-top: 0; /* ✅ so the margin-bottom above is the source of truth */
   flex-wrap: wrap;
 }
 
@@ -222,7 +258,20 @@ label {
   opacity: 1;
 }
 
-/* Todos */
+/* ---------- Todo: List / Items ---------- */
+
+.todo-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.todo-list__item {
+  margin: 0;
+}
+
 .todo {
   display: flex;
   justify-content: space-between;
@@ -239,6 +288,12 @@ label {
   gap: var(--s-2);
   min-width: 0;
   flex: 1;
+}
+
+.todo__check {
+  width: 16px;
+  height: 16px;
+  accent-color: rgba(160, 120, 255, 0.9);
 }
 
 .todo__text {
@@ -262,13 +317,31 @@ label {
   opacity: 0.65;
 }
 
-/* Contact */
+.todo--done .todo__text {
+  text-decoration: line-through;
+}
+
+/* ✅ tiny mobile resilience: allow todo row to wrap cleanly */
+@media (max-width: 420px) {
+  .todo {
+    flex-wrap: wrap;
+  }
+
+  .todo__actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+/* ---------- Contact ---------- */
+
 .contact-form {
   margin-top: var(--s-2);
   display: grid;
   gap: var(--s-3);
 }
 
+/* Works whether you use label wrappers or label+input pairs */
 .contact-field {
   display: grid;
   gap: var(--s-1);
@@ -287,16 +360,15 @@ label {
   flex-wrap: wrap;
 }
 
-/* ===== Footer fixes (stop the “one-item-per-line” disaster) ===== */
+/* ---------- Footer ---------- */
 
 .footer {
   padding: var(--footer-pad-y) var(--footer-pad-x);
 }
 
-/* Make footer layout resilient even if JSX uses many separate elements */
 .footer__row {
-  display: flex; /* ✅ NOT grid */
-  flex-wrap: wrap; /* ✅ wraps nicely */
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   column-gap: 12px;
@@ -304,7 +376,6 @@ label {
   text-align: center;
 }
 
-/* If Footer.jsx has child divs/ps that are block-level, force them to behave */
 .footer__row > * {
   display: inline-flex;
   align-items: center;
@@ -312,11 +383,17 @@ label {
   gap: 6px;
   margin: 0;
   padding: 0;
-  flex: 0 0 auto; /* ✅ prevent full-width stacking */
-  white-space: nowrap; /* ✅ keep each chunk together */
+  flex: 0 0 auto;
+  white-space: nowrap;
 }
 
-/* If you already use these classes, they still look right */
+.footer__group {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
 .footer__logo {
   width: 20px;
   height: 20px;
@@ -338,10 +415,9 @@ label {
 }
 
 .footer__link {
-  color: inherit;
-  text-decoration: none;
   font-weight: 500;
   opacity: 0.82;
+  text-decoration: none;
   transition:
     opacity 0.2s ease,
     text-shadow 0.2s ease;
@@ -350,37 +426,20 @@ label {
 .footer__link:hover {
   opacity: 1;
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-  text-decoration: underline;
 }
 
-.muted {
-  color: var(--muted);
+.footer__brand strong {
+  transition:
+    text-shadow 0.25s ease,
+    opacity 0.25s ease;
 }
 
-/* --------- Breakpoints --------- */
-
-/* Small phones */
-@media (max-width: 420px) {
-  .todo-form__input {
-    flex: 1 1 100%;
-    min-width: 0;
-  }
-
-  .todo-form__btn {
-    flex: 1 1 100%;
-  }
-
-  .footer {
-    padding: 10px 10px;
-  }
-
-  .footer__logo {
-    width: 18px;
-    height: 18px;
-  }
+.footer__link:hover .footer__brand strong {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.35);
+  opacity: 1;
 }
+/* ---------- Breakpoints ---------- */
 
-/* Tablet+ */
 @media (min-width: 561px) {
   .shell {
     width: min(960px, calc(100% - 32px));
@@ -397,7 +456,6 @@ label {
   }
 }
 
-/* Very small phones */
 @media (max-width: 360px) {
   .nav__links {
     gap: var(--s-1);

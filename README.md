@@ -10,7 +10,7 @@
 
 - As a user, I can filter All / Completed / Incomplete so I can focus on what matters.
 
-## **Wireframes** (quick descriptions)
+## **Wireframes** 
 
 ## Todos view: 
 
@@ -20,7 +20,7 @@
 
 - Glass form card with First Name / Last Name / Email / Comments + Submit; success message.
 
-## **State tree** (simple + correct)
+## **State tree** 
 
 - App
 
@@ -43,22 +43,43 @@
 npm i react-router-dom
 
 ## File Tree
-src/
-  index.js
-  index.css
-  App.js
-  App.css
-  components/
-    NavBar.jsx
-    WorldClock.jsx
-    GlassCard.jsx
-  pages/
-    TodosPage.jsx
-    ContactPage.jsx
-  todos/
-    todoReducer.js
-    TodoForm.jsx
-    TodoFilters.jsx
-    TodoList.jsx
-    TodoItem.jsx
+Task X/
+├─ public/
+│  ├─ apple-touch-icon.png
+│  ├─ favicon-96x96.png
+│  ├─ favicon.ico
+│  ├─ favicon.svg
+│  ├─ index.html
+│  ├─ robots.txt
+│  ├─ site.webmanifest
+│  ├─ web-app-manifest-192x192.png
+│  └─ web-app-manifest-512x512.png
+│
+├─ src/
+│  ├─ components/
+│  │  ├─ Footer.jsx
+│  │  ├─ GlassCard.jsx
+│  │  ├─ NavBar.jsx
+│  │  └─ WorldClock.jsx
+│  │
+│  ├─ pages/
+│  │  ├─ ContactPage.jsx
+│  │  └─ TodoPage.jsx
+│  │
+│  ├─ todos/
+│  │  ├─ TodoFilters.jsx
+│  │  ├─ TodoForm.jsx
+│  │  ├─ TodoItem.jsx
+│  │  ├─ TodoList.jsx
+│  │  └─ todoReducer.js
+│  │
+│  ├─ App.jsx
+│  ├─ index.js
+│  └─ styles.css
+│
+├─ .gitignore
+├─ package.json
+├─ package-lock.json
+└─ README.md
+
 

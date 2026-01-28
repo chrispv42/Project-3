@@ -14,7 +14,12 @@ export default function NavBar({ brand = 'Task X' }) {
     <div className={cls.root} role="banner">
       {/* Brand / Logo */}
       <NavLink to="/todos" className={cls.brand} aria-label={brand}>
-        <img src="/favicon.svg" alt="" className={cls.logo} aria-hidden="true" />
+        <img
+          src={`${process.env.PUBLIC_URL}/favicon.svg`}
+          alt=""
+          className={cls.logo}
+          aria-hidden="true"
+        />
         <span>{brand}</span>
       </NavLink>
 

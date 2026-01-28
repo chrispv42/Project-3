@@ -1,5 +1,5 @@
 // src/App.jsx
-import React from 'react';
+
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import NavBar from './components/NavBar.jsx';

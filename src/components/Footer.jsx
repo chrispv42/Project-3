@@ -7,7 +7,12 @@ export default function Footer() {
       <div className="footer__row">
         {/* Left group */}
         <div className="footer__group footer__group--meta">
-          <img src="/favicon.svg" alt="" className="footer__logo" aria-hidden="true" />
+          <img
+            src={`${process.env.PUBLIC_URL}/favicon.svg`}
+            alt=""
+            className="footer__logo"
+            aria-hidden="true"
+          />
           <span className="footer__text">Task X</span>
           <span className="footer__copyright" aria-hidden="true">
             ©
@@ -16,17 +21,21 @@ export default function Footer() {
         </div>
 
         {/* Right group */}
-        <a
-          href="https://fluxlinedigital.net"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="footer__link"
-        >
-          <span className="footer__brand" aria-label="Fluxline Digital, all rights reserved">
-            🔵 <strong>Fluxline Digital</strong> 🔵{' '}
-            <span className="muted">All rights reserved.</span>
-          </span>
-        </a>
+        <div className="footer__group">
+          <span>🔵</span>
+
+          <a
+            href="https://fluxlinedigital.net"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer__link"
+          >
+            <strong>Fluxline Digital</strong>
+          </a>
+
+          <span>🔵</span>
+          <span className="muted">All rights reserved.</span>
+        </div>
       </div>
     </footer>
   );

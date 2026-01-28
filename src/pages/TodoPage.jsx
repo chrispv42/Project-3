@@ -16,40 +16,36 @@ export default function TodoPage() {
     return todos;
   }, [todos, filter]);
 
-  const cls = {
-    root: 'grid',
-    card: 'card',
-    row: 'row',
-    muted: 'muted',
-  };
+  function addTodo(text) {
+    dispatch({ type: 'ADD', text });
+  }
+
+  function toggleTodo(id) {
+    dispatch({ type: 'TOGGLE', id });
+  }
+
+  function deleteTodo(id) {
+    dispatch({ type: 'DELETE', id });
+  }
 
   return (
-    <>
-      <div className={cls.root}>
-        {/* Simple “extra” card (not fancy) */}
-        <WorldClock />
+    <div className="grid">
+      <WorldClock />
 
-        {/* Side-by-side requirement: controls + list (desktop), wraps on small screens */}
-        <section className={`${cls.card} ${cls.row}`} aria-label="Todo controls and list">
-          <div style={{ flex: '1 1 280px', minWidth: 260 }}>
-            <section>
-              <h1>Task Ops</h1>
-              <p className={cls.muted}>Add tasks, filter them, mark complete, delete.</p>
-            </section>
-            <TodoForm onAdd={(text) => dispatch({ type: 'ADD', text })} />
-            <TodoFilters filter={filter} setFilter={setFilter} />
-          </div>
+      <section className="card row" aria-label="Todo controls and list">
+        <div className="todo-col todo-col--controls">
+          <h1>Task Ops</h1>
+          <p className="muted">Add tasks, filter them, mark complete, delete.</p>
 
-          <div style={{ flex: '2 1 360px', minWidth: 280 }}>
-            <h2>Active Tasks</h2>
-            <TodoList
-              todos={filteredTodos}
-              onToggle={(id) => dispatch({ type: 'TOGGLE', id })}
-              onDelete={(id) => dispatch({ type: 'DELETE', id })}
-            />
-          </div>
-        </section>
-      </div>
-    </>
+          <TodoForm onAdd={addTodo} />
+          <TodoFilters filter={filter} setFilter={setFilter} />
+        </div>
+
+        <div className="todo-col todo-col--list">
+          <h2>Active Tasks</h2>
+          <TodoList todos={filteredTodos} onToggle={toggleTodo} onDelete={deleteTodo} />
+        </div>
+      </section>
+    </div>
   );
 }

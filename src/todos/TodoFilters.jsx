@@ -1,10 +1,5 @@
 // src/todos/TodoFilters.jsx
 export default function TodoFilters({ filter, setFilter }) {
-  const cls = {
-    root: 'row',
-    btn: 'btn',
-  };
-
   const filters = [
     { key: 'all', label: 'All' },
     { key: 'completed', label: 'Completed' },
@@ -12,20 +7,18 @@ export default function TodoFilters({ filter, setFilter }) {
   ];
 
   return (
-    <>
-      <div className={cls.root}>
-        {filters.map((f) => (
-          <button
-            key={f.key}
-            type="button"
-            className={cls.btn}
-            onClick={() => setFilter(f.key)}
-            aria-pressed={filter === f.key}
-          >
-            {f.label}
-          </button>
-        ))}
-      </div>
-    </>
+    <div className="filters" role="group" aria-label="Todo filters">
+      {filters.map((f) => (
+        <button
+          key={f.key}
+          type="button"
+          className="btn"
+          onClick={() => setFilter(f.key)}
+          aria-pressed={filter === f.key}
+        >
+          {f.label}
+        </button>
+      ))}
+    </div>
   );
 }

@@ -10,7 +10,8 @@ export function todoReducer(state, action) {
 
       const nextId = state.length ? Math.max(...state.map((t) => t.id)) + 1 : 1;
 
-      return [{ id: nextId, text, completed: false }, ...state];
+      const newTodo = { id: nextId, text, completed: false };
+      return [newTodo, ...state];
     }
 
     case 'TOGGLE': {

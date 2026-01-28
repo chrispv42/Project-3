@@ -2,26 +2,17 @@
 import TodoItem from './TodoItem.jsx';
 
 export default function TodoList({ todos, onToggle, onDelete }) {
-  const cls = {
-    root: 'grid',
-    muted: 'muted',
-  };
+  if (todos.length === 0) {
+    return <p className="muted">No tasks yet. Add one to start your organized journey 😎</p>;
+  }
 
   return (
-    <>
-      <div id="todo-list" className={cls.root}>
-        {todos.length === 0 ? (
-          <p className={cls.muted}>No tasks yet. Add one to start your organized journey 😎</p>
-        ) : (
-          <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
-            {todos.map((t) => (
-              <li key={t.id} style={{ marginBottom: 10 }}>
-                <TodoItem todo={t} onToggle={onToggle} onDelete={onDelete} />
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-    </>
+    <ul id="todo-list" className="todo-list" aria-label="Todo list">
+      {todos.map((todo) => (
+        <li key={todo.id} className="todo-list__item">
+          <TodoItem todo={todo} onToggle={onToggle} onDelete={onDelete} />
+        </li>
+      ))}
+    </ul>
   );
 }
